@@ -1,0 +1,17 @@
+.item
+  pointer-events: none
+
+  .container
+    display: block
+    width: 10000px
+    height: 10000px
+
+    .resizer
+      display: inline-block
+      user-select: none
+
+      & > *
+        pointer-events: all
+
+      .mover
+        cursor: move

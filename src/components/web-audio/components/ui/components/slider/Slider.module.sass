@@ -1,0 +1,35 @@
+.slider
+  --size: 14px
+  --length: 170px
+  --value: .5
+
+  --dsize: calc(var(--size) * .5)
+  --total: calc(var(--length) - var(--size))
+
+  background: #333
+  border-radius: var(--size)
+  padding: var(--dsize)
+  cursor: pointer
+
+  .point
+    --tr: calc(var(--dsize) * -1)
+    width: var(--size)
+    height: var(--size)
+    border-radius: 100%
+    background-color: #999
+    translate: var(--tr) var(--tr)
+    // display: none
+
+  &:not(.vertical)
+    height: var(--size)
+    width: var(--length)
+
+    .point
+      margin-left: calc(var(--value) * var(--total))
+
+  &.vertical
+    width: var(--size)
+    height: var(--length)
+
+    .point
+      margin-top: calc(var(--value) * var(--total))
