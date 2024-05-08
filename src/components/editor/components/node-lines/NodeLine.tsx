@@ -30,6 +30,9 @@ export const NodeLine: FC<NodeLineProps> = (props) => {
     if (!props.to)
       return;
 
+    if (event.button)
+      return;
+
     const offset = map.offset(event);
     const fromDistance = from.peek().distance(offset);
     const toDistance = to.peek().distance(offset);
