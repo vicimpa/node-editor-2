@@ -32,7 +32,7 @@ export class NodeMap extends Component<PropsWithChildren> {
 
   x = signal(0);
   y = signal(0);
-  s = signalCorrect(1, v => minMax(v, .1, 2));
+  s = signalCorrect(1, v => minMax(v, .1, 1.5));
 
   mouse = signal(new Vec2());
 

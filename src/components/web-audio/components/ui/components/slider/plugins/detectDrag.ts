@@ -30,10 +30,10 @@ export default (ctx: Slider) => (
       );
     };
 
-    const drag = makeDrag(({ target, start: offset }) => {
+    const drag = makeDrag(({ target, event }) => {
       if (target !== point) {
         saveDate(
-          offset
+          Vec2.fromOffsetXY(event)
             .minus(Vec2.fromOffsetSize(point).times(.5))
             .times(cof())
             .plus(min.value)
@@ -47,11 +47,11 @@ export default (ctx: Slider) => (
           delta
             .div(ctx.map.s.value)
             .times(cof())
-            .times(-1)
+            .times(ctx.props.reverse ? 1 : -1)
             .plus(start)
         );
       };
-    }, undefined, true);
+    }, 0);
 
     return dispose(
       refEvent(ctx.ref, 'mousedown', drag),

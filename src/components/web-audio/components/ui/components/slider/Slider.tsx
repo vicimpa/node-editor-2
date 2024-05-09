@@ -17,9 +17,9 @@ export type SliderProps = {
   min?: number;
   max?: number;
   vertical?: boolean;
+  reverse?: boolean;
   defaultValue?: number;
 };
-
 
 @connect(detectDrag, detectWheel)
 export class Slider extends Component<SliderProps> {
@@ -55,18 +55,21 @@ export class Slider extends Component<SliderProps> {
 
   render(): ReactNode {
     return (
-      <div
-        ref={this.ref}
-        className={clsx(
-          s.slider,
-          [s.vertical, this.props.vertical]
-        )}
-      >
-        <rsp.div
-          ref={this.point}
-          className={s.point}
-          style={this.style} />
-      </div>
+      <>
+        <div
+          ref={this.ref}
+          className={clsx(
+            s.slider,
+            [s.vertical, this.props.vertical],
+            [s.reverse, this.props.reverse]
+          )}
+        >
+          <rsp.div
+            ref={this.point}
+            className={s.point}
+            style={this.style} />
+        </div>
+      </>
     );
   }
 };

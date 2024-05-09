@@ -35,22 +35,11 @@ export type NodePortProps = {
 
 function computeDir(dir?: PortDirection) {
   const out = new Vec2();
-
-  if (!dir)
-    return out;
-
-  if (dir.includes('top'))
-    out.y -= 1;
-
-  if (dir.includes('bottom'))
-    out.y += 1;
-
-  if (dir.includes('left'))
-    out.x -= 1;
-
-  if (dir.includes('right'))
-    out.x += 1;
-
+  if (!dir) return out;
+  if (dir.includes('top')) out.y -= 1;
+  if (dir.includes('bottom')) out.y += 1;
+  if (dir.includes('left')) out.x -= 1;
+  if (dir.includes('right')) out.x += 1;
   return out.normalize();
 }
 
@@ -69,7 +58,6 @@ export class NodePort extends Component<NodePortProps> {
 
   pos = computePosition(this);
   dir = signal(computeDir(this.props.dir));
-
 
   componentDidUpdate(prevProps: Readonly<NodePortProps>): void {
     if (this.props.dir !== prevProps.dir)
@@ -100,7 +88,7 @@ export class NodePort extends Component<NodePortProps> {
       <span
         id={this.id}
         ref={this.ref}
-        className={s.port}
+        className={`${s.port} ${s[this.props.dir ?? 'center'] ?? ''}`}
       />
     );
   }

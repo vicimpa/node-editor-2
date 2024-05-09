@@ -11,6 +11,9 @@
   padding: var(--dsize)
   cursor: pointer
 
+  &.reverse
+    transform: matrix(-1,0,0,-1,0,0)
+
   .point
     --tr: calc(var(--dsize) * -1)
     width: var(--size)
