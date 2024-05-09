@@ -11,9 +11,7 @@ export default (ctx: NodeLine) => (
 
     return [
       'M', ...from,
-      'T', ...fromStep,
-      'T', ...toStep,
-      'T', ...to
+      'C', ...fromStep, ...toStep, ...to
     ].join(' ');
   })
 );

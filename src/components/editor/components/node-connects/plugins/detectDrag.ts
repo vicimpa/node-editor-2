@@ -1,4 +1,5 @@
 import { NodeConnects } from "../NodeConnects";
+import { NodePort } from "../../node-port";
 import { looper } from "@/library/looper";
 import { makeDrag } from "@/utils/makeDrag";
 import { windowEvent } from "@/library/events";
@@ -6,7 +7,13 @@ import { windowEvent } from "@/library/events";
 export default (ctx: NodeConnects) => {
   const drag = makeDrag(({ target, start, current, event: { metaKey, ctrlKey } }) => {
     const port = ctx.findPort(target);
+    const line = ctx.findLine(target);
     const { map } = ctx;
+
+    ctx.mouse.value = map.offset(start);
+    const distance = (port: NodePort) => (
+      ctx.mouse.peek().distance(port.pos.peek())
+    );
 
     if (port) {
       if (ctrlKey || metaKey) {
@@ -15,7 +22,13 @@ export default (ctx: NodeConnects) => {
         ctx.active.value = [port];
       }
     }
-    ctx.mouse.value = map.offset(start);
+
+    if (line && line.to.peek()) {
+      const [from, to] = [line.from.peek()!, line.to.peek()!]
+        .sort((a, b) => distance(a) - distance(b));
+
+      ctx.active.value = ctx.drop(from, to);
+    }
 
     if (!ctx.active.peek().length)
       return;

@@ -8,23 +8,37 @@ export const App = () => {
       <Node title="Hi">
         <p>
           asdasdasdds
-          <NodePort />
+          <NodePort dir="right" />
         </p>
       </Node>
       <Node title="Hi">
         <p>
           asdasdasd
-          <NodePort />
+          <NodePort dir="right" />
         </p>
       </Node>
       <Node title="Hi">
         <p>
-          <NodePort />
+          <NodePort dir="left" />
           asdadasdds
+          <NodePort dir="right" />
         </p>
         <p>
-          <NodePort />
+          <NodePort dir="left" />
           asdadasdds
+          <NodePort dir="right" />
+        </p>
+      </Node>
+      <Node title="Hi">
+        <p>
+          <NodePort dir="left" />
+          asdasdasdds
+        </p>
+      </Node>
+      <Node title="Hi">
+        <p>
+          <NodePort dir="left" />
+          asdasdasd
         </p>
       </Node>
     </>

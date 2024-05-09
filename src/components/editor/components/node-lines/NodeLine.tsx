@@ -10,7 +10,9 @@ import computePoint from "./calc/computePoint";
 import { provider } from "@/library/provide";
 import registerLine from "./plugins/registerLine";
 import rsp from "@vicimpa/rsp";
+import s from "./NodeLine.module.sass";
 import { signal } from "@preact/signals-react";
+import { signalRef } from "@/library/signals";
 
 export type NodeLineProps = {
   from: NodePort,
@@ -19,6 +21,8 @@ export type NodeLineProps = {
 
 @connect(registerLine)
 export class NodeLine extends Component<NodeLineProps> {
+  ref = signalRef<SVGPathElement>();
+
   @inject(provider(NodeConnects))
   connects!: NodeConnects;
 
@@ -45,7 +49,15 @@ export class NodeLine extends Component<NodeLineProps> {
 
   render(): ReactNode {
     return (
-      <rsp.path d={this.path} fill="none" stroke="#fff" />
+      <>
+        <rsp.path
+          ref={this.ref}
+          d={this.path}
+          fill="none"
+          stroke="#fff"
+          strokeWidth={3}
+          className={this.props.to ? s.point : s.nopoint} />
+      </>
     );
   }
 }

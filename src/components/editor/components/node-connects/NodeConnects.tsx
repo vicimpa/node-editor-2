@@ -27,6 +27,11 @@ export class NodeConnects extends Component<PropsWithChildren> {
   complate = signal<TLine[]>([]);
   active = signal<NodePort[]>([]);
 
+  findLine(target?: EventTarget | null) {
+    return [...this.lines]
+      .find(({ ref }) => ref.peek() === target);
+  }
+
   findPort(target?: EventTarget | null) {
     return [...this.ports]
       .find(({ ref }) => ref.peek() === target);
