@@ -42,10 +42,10 @@ export const NodeLine: FC<NodeLineProps> = (props) => {
   };
 
   return (
-    <g stroke="#fff" fill="#fff" strokeWidth={6}>
+    <g stroke="#fff" fill="#fff" >
       <rsp.line
         {...{ x1, y1, x2, y2 }}
-        onMouseDown={mouseDown}
+        onMouseDown={mouseDown} strokeWidth={1}
         className={!props.to ? s.nopoint : s.point} />
       {
         !props.to && (

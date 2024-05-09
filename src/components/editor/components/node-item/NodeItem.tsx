@@ -4,6 +4,7 @@ import { provide, provider } from "@/library/provide";
 
 import { NodeList } from "../node-list";
 import { NodeMap } from "../node-map";
+import computePosition from "./calc/computePosition";
 import computeViewBox from "./calc/computeViewBox";
 import detectDrag from "./plugins/detectDrag";
 import detectResize from "./plugins/detectResize";
@@ -39,6 +40,8 @@ export class NodeItem extends Component<NodeItemProps> {
 
   x = signal(this.props.x ?? 0);
   y = signal(this.props.y ?? 0);
+
+  pos = computePosition(this);
 
   width = signal(0);
   height = signal(0);

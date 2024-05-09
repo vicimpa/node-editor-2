@@ -32,7 +32,7 @@ export class NodeLines extends Component<PropsWithChildren> {
   }
 
   check(a: NodePort, b: NodePort) {
-    return this.lines.peek()
+    return !!this.lines.peek()
       .find(item => item.includes(a) && item.includes(b));
   }
 
@@ -73,6 +73,8 @@ export class NodeLines extends Component<PropsWithChildren> {
         for (const to of _to) {
           if (
             true
+            && !this.check(from, to)
+            && from !== to
             && from.onConnect(to)
             && to.onConnect(from)
           ) {
