@@ -1,4 +1,5 @@
 import { NodeBack } from "./components/node-back";
+import { NodeConnects } from "./components/node-connects";
 import { NodeLayers } from "./components/node-layers";
 import { NodeLines } from "./components/node-lines";
 import { NodeList } from "./components/node-list";
@@ -11,11 +12,13 @@ export const Editor = (props: { children?: ReactNode; }) => {
       <NodeBack type="point" size={30} color="#666" />
 
       <NodeLayers>
-        <NodeLines>
-          <NodeList>
-            {props.children}
-          </NodeList>
-        </NodeLines>
+        <NodeConnects>
+          <NodeLines>
+            <NodeList>
+              {props.children}
+            </NodeList>
+          </NodeLines>
+        </NodeConnects>
       </NodeLayers>
     </NodeMap>
   );

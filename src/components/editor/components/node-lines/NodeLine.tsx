@@ -1,61 +1,51 @@
-import { FC, MouseEvent } from "react";
-import { Signal, useComputed } from "@preact/signals-react";
+import { Component, ReactNode } from "react";
+import { connect, inject } from "@/library/connect";
 
-import { NodeLines } from "./NodeLines";
-import { NodeMap } from "../node-map";
+import { NodeConnects } from "../node-connects";
 import { NodePort } from "../node-port";
-import { Vec2 } from "@/library/vec2";
+import computeDelta from "./calc/computeDelta";
+import computeDistance from "./calc/computeDistance";
+import computePath from "./calc/computePath";
+import computePoint from "./calc/computePoint";
+import { provider } from "@/library/provide";
+import registerLine from "./plugins/registerLine";
 import rsp from "@vicimpa/rsp";
-import s from "./NodeLine.module.sass";
-import { useProvide } from "@/library/provide";
+import { signal } from "@preact/signals-react";
 
 export type NodeLineProps = {
-  mouse: Signal<Vec2>;
   from: NodePort,
   to?: NodePort;
 };
 
-export const NodeLine: FC<NodeLineProps> = (props) => {
-  const map = useProvide(NodeMap);
-  const lines = useProvide(NodeLines);
+@connect(registerLine)
+export class NodeLine extends Component<NodeLineProps> {
+  @inject(provider(NodeConnects))
+  connects!: NodeConnects;
 
-  const from = useComputed(() => props.from.pos.value);
-  const to = useComputed(() => props.to?.pos.value ?? props.mouse.value);
-  const x1 = useComputed(() => from.value.x);
-  const y1 = useComputed(() => from.value.y);
-  const x2 = useComputed(() => to.value.x);
-  const y2 = useComputed(() => to.value.y);
+  from = signal(this.props.from);
+  to = signal(this.props.to);
 
-  const mouseDown = (event: MouseEvent) => {
-    if (!props.to)
-      return;
+  fromPoint = computePoint(this, this.from);
+  toPoint = computePoint(this, this.to);
 
-    if (event.button)
-      return;
+  distance = computeDistance(this);
 
-    const offset = map.offset(event);
-    const fromDistance = from.peek().distance(offset);
-    const toDistance = to.peek().distance(offset);
-    const portTo = fromDistance > toDistance ? props.to : props.from;
-    const portFrom = fromDistance > toDistance ? props.from : props.to;
-    lines.active.value = lines.drop(portTo, portFrom);
-  };
+  fromDelta = computeDelta(this, this.from);
+  toDelta = computeDelta(this, this.to);
 
-  return (
-    <g stroke="#fff" fill="#fff" >
-      <rsp.line
-        {...{ x1, y1, x2, y2 }}
-        onMouseDown={mouseDown} strokeWidth={1}
-        className={!props.to ? s.nopoint : s.point} />
-      {
-        !props.to && (
-          <>
-            <rsp.circle cx={x1} cy={y1} r={2} className={s.nopoint} />
-            <rsp.circle cx={x2} cy={y2} r={2} className={s.nopoint} />
-          </>
-        )
-      }
-    </g>
-  );
+  path = computePath(this);
+
+  componentDidUpdate(): void {
+    if (this.from.peek() !== this.props.from)
+      this.from.value = this.props.from;
+
+    if (this.to.peek() !== this.props.to)
+      this.to.value = this.props.to;
+  }
+
+  render(): ReactNode {
+    return (
+      <rsp.path d={this.path} fill="none" stroke="#fff" />
+    );
+  }
 }
-

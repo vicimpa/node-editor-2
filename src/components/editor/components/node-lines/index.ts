@@ -1,1 +1,2 @@
-export * from "./NodeLines"
+export * from "./NodeLines";
+export * from "./NodeLine";

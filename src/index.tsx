@@ -1,3 +1,5 @@
+import "@/library/mods";
+
 // import { StrictMode } from "react";
 import { WebAudio } from "./components/web-audio";
 import { createRoot } from "react-dom/client";

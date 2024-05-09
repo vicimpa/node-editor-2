@@ -6,7 +6,7 @@ export default (ctx: NodePort) => (
   composeEffect([ctx.ref, ctx.nodeItem.resizer],
     (port, item) => {
       if (!port || !item) {
-        ctx.lines.drop(ctx);
+        ctx.connects.drop(ctx);
         return;
       }
 

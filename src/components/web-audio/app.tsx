@@ -13,10 +13,15 @@ export const App = () => {
       </Node>
       <Node title="Hi">
         <p>
+          asdasdasd
           <NodePort />
         </p>
       </Node>
       <Node title="Hi">
+        <p>
+          <NodePort />
+          asdadasdds
+        </p>
         <p>
           <NodePort />
           asdadasdds

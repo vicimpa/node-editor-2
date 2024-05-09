@@ -1,9 +1,9 @@
-import { NodeLines } from "../NodeLines";
+import { NodeConnects } from "../NodeConnects";
 import { looper } from "@/library/looper";
 import { makeDrag } from "@/utils/makeDrag";
 import { windowEvent } from "@/library/events";
 
-export default (ctx: NodeLines) => {
+export default (ctx: NodeConnects) => {
   const drag = makeDrag(({ target, start, current, event: { metaKey, ctrlKey } }) => {
     const port = ctx.findPort(target);
     const { map } = ctx;
