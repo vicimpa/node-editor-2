@@ -47,7 +47,7 @@ export default (ctx: Slider) => (
           delta
             .div(ctx.map.s.value)
             .times(cof())
-            .times(ctx.props.reverse ? 1 : -1)
+            .times(ctx.reverse ? 1 : -1)
             .plus(start)
         );
       };

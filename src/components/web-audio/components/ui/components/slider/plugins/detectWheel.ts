@@ -16,9 +16,10 @@ export default (ctx: Slider) => (
       e.stopPropagation();
 
       const total = ctx.max.value - ctx.min.value;
+      const r = ctx.reverse ? -1 : 1;
 
       ctx.value.value.value = minMax(
-        ctx.value.value.value - e.deltaY * total / 5000,
+        ctx.value.value.value - e.deltaY * r * total / 5000,
         ctx.min.value,
         ctx.max.value
       );

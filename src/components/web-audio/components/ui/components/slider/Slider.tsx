@@ -37,6 +37,14 @@ export class Slider extends Component<SliderProps> {
 
   style = computeStyle(this);
 
+  get vertical() {
+    return !!this.props.vertical === true;
+  }
+
+  get reverse() {
+    return !this.props.reverse === this.vertical;
+  }
+
   @inject(provider(NodeMap))
   map!: NodeMap;
 
@@ -60,8 +68,8 @@ export class Slider extends Component<SliderProps> {
           ref={this.ref}
           className={clsx(
             s.slider,
-            [s.vertical, this.props.vertical],
-            [s.reverse, this.props.reverse]
+            [s.vertical, this.vertical],
+            [s.reverse, this.reverse]
           )}
         >
           <rsp.div
